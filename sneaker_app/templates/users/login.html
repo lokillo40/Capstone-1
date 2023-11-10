@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Log in Content Block -->
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <!-- Log in Form Heading -->
+        <h2 class="mb-3">Login</h2>
+        <!-- Log in Form Start -->
+        <form method="post" novalidate>
+            <input type="hidden" id="csrf_token_1" name="csrf_token" value="{{ csrf_token() }}">
+            <!-- CSRF Token for form security -->
+
+            <!-- Email Field -->
+            <div class="form-group">
+                {{ form.email.label(class="form-control-label") }}
+                {{ form.email(class="form-control") }}
+                <!-- Email Errors -->
+                {% for error in form.email.errors %}
+                <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-group">
+                {{ form.password.label(class="form-control-label") }}
+                {{ form.password(class="form-control") }}
+                <!-- Password Errors -->
+                {% for error in form.password.errors %}
+                <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-group">
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+

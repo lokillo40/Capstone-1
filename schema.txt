@@ -1,0 +1,18 @@
+Users Table
+
+Primary Key: UserID
+Columns:
+UserID (Primary Key)
+Username
+Password (Hashed and Salted)
+Email
+Full name
+Join date
+
+Favorites Table
+
+Primary Key: FavoriteID
+Columns:
+FavoriteID (Primary Key)
+UserID (Foreign Key referencing Users.UserID)
+SneakerID (Unique Identifier for Sneakers)

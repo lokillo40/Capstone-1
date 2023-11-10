@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Your Favorite Sneakers</h2>
+    <ul class="list-unstyled">
+        {% for sneaker in favorite_sneakers_info %}
+        <li class="media mt-4">
+            <img src="{{ sneaker.results[0].media.imageUrl if sneaker.results[0].media and sneaker.results[0].media.imageUrl else 'https://www.freeiconspng.com/uploads/no-image-icon-15.png' }}"alt="{{ sneaker.results[0].name }} Image" class="mr-3" width="200">
+            <div class="media-body">
+                <h5 class="mt-0"><strong>{{ sneaker.results[0].name }}</strong> - {{ sneaker.results[0].brand }}</h5>
+                <p><strong>Colorway:</strong> {{ sneaker.results[0].colorway }}</p>
+                <p><strong>Gender:</strong> {{ sneaker.results[0].gender }}</p>
+                <p><strong>Release Date:</strong> {{ sneaker.results[0].releaseDate }}</p>
+                <p><strong>Retail Price:</strong> ${{ sneaker.results[0].retailPrice }}</p>
+                <p><strong>Shoe:</strong> {{ sneaker.results[0].shoe }}</p>
+                <p><strong>Style ID:</strong> {{ sneaker.results[0].styleId }}</p>
+                <p><strong>Title:</strong> {{ sneaker.results[0].title }}</p>
+                <p><strong>Year:</strong> {{ sneaker.results[0].year }}</p>
+
+                <!-- Delete Favorite Button -->
+                <form method="POST" action="{{ url_for('delete_favorite', sneaker_id=sneaker.results[0].id) }}">
+                    {{ form.csrf_token }}
+                    <button type="submit" class="btn btn-danger">Delete Favorite</button>
+                </form>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
+
+

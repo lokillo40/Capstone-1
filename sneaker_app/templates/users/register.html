@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<!-- Register Content Block -->
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <!-- Registration Form Heading -->
+        <h2 class="mb-3">Register</h2>
+        <!-- Registration Form Start -->
+        <form method="post" novalidate>
+            <input type="hidden" id="csrf_token_2" name="csrf_token" value="{{ csrf_token() }}">
+            <!-- CSRF Token for form security -->
+
+             <!-- Full Name Field -->
+             <div class="form-group">
+                {{ form.full_name.label(class="form-control-label") }}
+                {{ form.full_name(class="form-control") }}
+                <!-- Full Name Errors -->
+                {% for error in form.full_name.errors %}
+                <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+            </div>
+            
+            <!-- Username Field -->
+            <div class="form-group">
+                {{ form.username.label(class="form-control-label") }}
+                {{ form.username(class="form-control") }}
+                <!-- Username Errors -->
+                {% for error in form.username.errors %}
+                <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+            </div>
+            
+            <!-- Email Field -->
+            <div class="form-group">
+                {{ form.email.label(class="form-control-label") }}
+                {{ form.email(class="form-control") }}
+                <!-- Email Errors -->
+                {% for error in form.email.errors %}
+                <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+            </div>
+            
+            <!-- Password Field -->
+            <div class="form-group">
+                {{ form.password.label(class="form-control-label") }}
+                {{ form.password(class="form-control") }}
+                <!-- Password Errors -->
+                {% for error in form.password.errors %}
+                <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+            </div>
+            
+            <!-- Confirm Password Field -->
+            <div class="form-group">
+                {{ form.confirm_password.label(class="form-control-label") }}
+                {{ form.confirm_password(class="form-control") }}
+                <!-- Confirm Password Errors -->
+                {% for error in form.confirm_password.errors %}
+                <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+            </div>
+            
+            <!-- Submit Button -->
+            <div class="form-group">
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+        </form>
+        <!-- Registration Form End -->
+    </div>
+</div>
+{% endblock %}

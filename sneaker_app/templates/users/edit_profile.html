@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Container for the form -->
+<div class="container">
+    <div class="row">
+        <!-- Form centered on the page with Bootstrap classes -->
+        <div class="col-md-6 offset-md-3">
+            <!-- Form heading -->
+            <h2>Edit Profile</h2>
+            <!-- Start of form with POST method -->
+            <form method="POST">
+                <!-- Hidden tag for CSRF protection -->
+                {{ form.hidden_tag() }}
+                <!-- Username field -->
+                <div class="form-group">
+                    {{ form.username.label(class="form-control-label") }}
+                    {{ form.username(class="form-control") }}
+                    <!-- Username errors -->
+                    {% for error in form.username.errors %}
+                    <span class="text-danger">{{ error }}</span>
+                    {% endfor %}
+                </div>
+                <!-- Email field -->
+                <div class="form-group">               
+                    {{ form.email.label(class="form-control-label") }}
+                    {{ form.email(class="form-control") }}
+                    <!-- Email errors -->
+                    {% for error in form.email.errors %}
+                    <span class="text-danger">{{ error }}</span>
+                    {% endfor %}
+                </div>
+                <!-- Full name field -->
+                <div class="form-group">
+                    {{ form.full_name.label(class="form-control-label") }}
+                    {{ form.full_name(class="form-control") }}
+                    <!-- Full name errors -->
+                    {% for error in form.full_name.errors %}
+                    <span class="text-danger">{{ error }}</span>
+                    {% endfor %}
+                </div>
+                
+                <!-- Submit button -->
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-primary") }}
+                </div>
+                <!-- Wrapper for the delete account button, to make it a block -->
+                <div class="form-group">
+                    <a href="{{ url_for('delete_account') }}" class="btn btn-info">Delete account</a>
+                </div>
+                <!-- Wrapper for the go back button, to make it a block -->
+                <div class="form-group">
+                    <a href="{{ url_for('profile') }}" class="btn btn-info">Go back</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

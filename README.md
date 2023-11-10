@@ -1,0 +1,1 @@
+API LINK: https://rapidapi.com/tg4-solutions-tg4-solutions-default/api/v1-sneakers

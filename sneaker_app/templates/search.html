@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Search Form -->
+<div class="container mt-4">
+    <h2>Search Sneakers</h2>
+    <form method="POST" action="{{ url_for('search') }}">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            <input type="text" class="form-control" name="search_query" placeholder="e.g., Jordan Retro 5">
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+</div>
+
+<!-- Display Search Results -->
+<div class="container mt-4">
+    {% if search_results %}
+    <ul>
+        {% for sneaker in search_results.results %}
+        <li>
+            <strong>{{ sneaker.name }}</strong> - {{ sneaker.brand }}<br>
+            Colorway: {{ sneaker.colorway }}<br>
+            Gender: {{ sneaker.gender }}<br>
+            Release Date: {{ sneaker.releaseDate }}<br>
+            Retail Price: ${{ sneaker.retailPrice }}<br>
+            Shoe: {{ sneaker.shoe }}<br>
+            Style ID: {{ sneaker.styleId }}<br>
+            Title: {{ sneaker.title }}<br>
+            Year: {{ sneaker.year }}<br>
+
+            <!-- Display Sneaker Image or a placeholder if the image is not available -->
+            <img src="{{ sneaker.media.imageUrl if sneaker.media.imageUrl else 'https://www.freeiconspng.com/uploads/no-image-icon-15.png' }}"
+                alt="{{ sneaker.name }} Image" width="300">
+
+            <!-- Add to Favorites Button -->
+            <button class="add-to-favorites btn btn-success" data-sneaker-id="{{ sneaker.id }}"
+                data-url="{{ url_for('add_to_favorites', sneaker_id=sneaker.id) }}">Add to Favorites</button>
+
+        </li>
+        {% endfor %}
+    </ul>
+    {% elif attempted_search %}
+    <p>No search results found.</p>
+    {% endif %}
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+        // Function to display flash messages
+        function displayFlashMessage(message, category) {
+            const flashMessagesDiv = $('#flash-messages');
+            if (message) {
+                const alertClass = category === 'success' ? 'alert-success' : 'alert-danger';
+                flashMessagesDiv
+                    .text(message)
+                    .removeClass('alert-success alert-danger')
+                    .addClass('alert ' + alertClass)
+                    .show();
+            }
+        }
+
+        // Event listener for Add to Favorites button clicks
+        $('.add-to-favorites').on('click', function(e) {
+            e.preventDefault(); // Prevent the default button action
+
+            const sneakerId = $(this).data('sneaker-id'); // Get the sneaker ID from the button's data attribute
+            const url = $(this).data('url'); // Get the URL from the button's data attribute
+
+            const button = $(this); // Reference to the button that was clicked
+
+            // Make the POST request to add to favorites
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {
+                    csrf_token: "{{ csrf_token() }}" // Send CSRF token for protection against CSRF attacks
+                },
+                success: function(response) {
+                    // Update the UI to reflect the addition
+                    button.prop('disabled', true).text('Added to Favorites'); // Disable the button and update the text
+                    displayFlashMessage(response.message, response.status); // Show the flash message
+                },
+                error: function(xhr, status, error) {
+                    // Update the UI to reflect the error
+                    displayFlashMessage('Failed to add to favorites. Please try again.', 'error'); // Show the error message
+                }
+            });
+        });
+    });
+</script>
+
+
+
+{% endblock %}

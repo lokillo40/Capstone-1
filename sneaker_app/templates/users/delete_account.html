@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Container for the form -->
+<div class="container">
+    <div class="row">
+        <!-- Form centered on the page with Bootstrap classes -->
+        <div class="col-md-6 offset-md-3">
+            <!-- Form heading -->
+            <h2>Delete Account</h2>
+            <!-- Start of form with POST method -->
+            <form method="POST">
+                <!-- Hidden tag for CSRF protection -->
+                {{ form.hidden_tag() }}
+                <!-- Password field -->
+                <div class="form-group">
+                    <!-- Password label and input field with placeholder -->
+                    {{ form.password.label(class="form-control-label") }}
+                    {{ form.password(class="form-control", placeholder="Enter your password to confirm") }}
+                    <!-- Password error -->
+                    {% for error in form.password.errors %}
+                    <span class="text-danger">{{ error }}</span>
+                    {% endfor %}
+                </div>
+                <!-- Danger button for deleting the account -->
+                <div class="form-group">
+                    <button type="submit" class="btn btn-danger">Delete Account</button>
+                </div>
+                <!-- Button to go back to the profile page -->
+                <div class="form-group">
+                    <a href="{{ url_for('profile') }}" class="btn btn-secondary">Back to Profile</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
