@@ -29,6 +29,9 @@ def create_app():
     # Initialize CSRF protection for the Flask app
     csrf = CSRFProtect(app)
 
+    # Access the CSRF secret key
+    csrf_secret_key = app.config['SECRET_KEY']  # Access the secret key from the app's configuration
+
     connect_db(app)
     app.app_context().push()
     db.create_all()
