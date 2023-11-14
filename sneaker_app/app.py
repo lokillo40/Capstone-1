@@ -10,14 +10,13 @@ from dotenv import load_dotenv  # Import load_dotenv to load environment variabl
 load_dotenv()
 
 
-from forms import RegistrationForm, LoginForm, EditProfileForm, DeleteAccountForm, AddToFavoritesForm, SearchForm, FavoritesForm, EditPasswordForm
+from sneaker_app.forms import RegistrationForm, LoginForm, EditProfileForm, DeleteAccountForm, AddToFavoritesForm, SearchForm, FavoritesForm, EditPasswordForm
 import requests
 
-import models 
-from models import User, db, connect_db, Favorite
-from config import Config
-from search_utils import perform_search
-
+import sneaker_app.models
+from sneaker_app.models import User, db, connect_db, Favorite
+from sneaker_app.config import Config
+from sneaker_app.search_utils import perform_search
 
 # Create a Flask application
 def create_app():

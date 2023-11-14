@@ -1,6 +1,6 @@
 import requests
 from flask import flash
-from config import Config
+from sneaker_app.config import Config
 
 # Define a function to perform the search operation
 def perform_search(search_query, API_URL, app):
