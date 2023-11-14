@@ -39,6 +39,11 @@ python test_app.py
 7. python seed.py
 8. flask run
 
+## Hosting
+
+This website is hosted at https://kicksfo.onrender.com
+
+
 
 
 
